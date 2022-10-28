@@ -84,6 +84,68 @@ namespace Form高频字检测 {
                     return true;
                 case '(':
                     return true;
+                case '≧':
+                    return true;
+                case '﹐':
+                    return true;
+                case '♂':
+                    return true;
+                case '╮':
+                    return true;
+                case '╯':
+                    return true;
+                case '．':
+                    return true;
+                case '＜':
+                    return true;
+                case 'Ｃ':
+                    return true;
+                case '⊥':
+                    return true;
+                case 'ｔ':
+                    return true;
+                case '▽':
+                    return true;
+                case '３':
+                    return true;
+                case '┟':
+                    return true;
+                case '※':
+                    return true;
+                case '╪':
+                    return true;
+                case '┞':
+                    return true;
+                case 'Ｂ':
+                    return true;
+                case '○':
+                    return true;
+                case '﹖':
+                    return true;
+                case '■':
+                    return true;
+                case 'ㄟ':
+                    return true;
+                case 'ˇ':
+                    return true;
+                case 'ˋ':
+                    return true;
+                case '〈':
+                    return true;
+                case '┝':
+                    return true;
+                case '＝':
+                    return true;
+                case '╭':
+                    return true;
+                case 'ｈ':
+                    return true;
+                case '＇':
+                    return true;
+                case 'Ａ':
+                    return true;
+                case 'ォ':
+                    return true;
                 case '‘':
                     return true;
                 case '’':
@@ -105,6 +167,14 @@ namespace Form高频字检测 {
                 case '〕':
                     return true;
                 case '‖':
+                    return true;
+                case 'ē':
+                    return true;
+                case 'л':
+                    return true;
+                case '☆':
+                    return true;
+                case '≦':
                     return true;
                 case '▲':
                     return true;
@@ -129,6 +199,92 @@ namespace Form高频字检测 {
                 case '┘':
                     return true;
                 case '《':
+                    return true;
+                case '㈠':
+                    return true;
+                case 'ω':
+                    return true;
+                case '⊙':
+                    return true;
+                case '℃':
+                    return true;
+                case '９':
+                    return true;
+                case 'щ':
+                    return true;
+                case 'Ⅱ':
+                    return true;
+                case 'Ｘ':
+                    return true;
+                case 'ю':
+                    return true;
+                case 'ъ':
+                    return true;
+                case '②':
+                    return true;
+                case '８':
+                    return true;
+                case 'ˊ':
+                    return true;
+                case 'ｅ':
+                    return true;
+                case '１':
+                    return true;
+                case '｀':
+                    return true;
+                case 'д':
+                    return true;
+                case 'ж':
+                    return true;
+                case '①':
+                    return true;
+                case '═':
+                    return true;
+                case '－':
+                    return true;
+                case '％':
+                    return true;
+                case '◎':
+                    return true;
+                case 'в':
+                    return true;
+                case 'ь':
+                    return true;
+                case 'м':
+                    return true;
+                case '）':
+                    return true;
+                case '（':
+                    return true;
+                case '～':
+                    return true;
+                case '':
+                    return true;
+                case '□':
+                    return true;
+                case 'ｍ':
+                    return true;
+                case 'ǎ':
+                    return true;
+                case 'ā':
+                    return true;
+                case '*':
+                    return true;
+                case '&':
+                    return true;
+                case '!':
+                    return true;
+                case '#':
+                    return true;
+                case '$':
+                    return true;
+                case '?':
+                    return true;
+                case '`':
+                    return true;
+                case '-':
+                    return true;
+                case '^':
                     return true;
                 case '》':
                     return true;
