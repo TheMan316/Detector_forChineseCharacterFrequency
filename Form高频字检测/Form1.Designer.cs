@@ -121,14 +121,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 15);
+            this.label1.Size = new System.Drawing.Size(112, 15);
             this.label1.TabIndex = 4;
-            this.label1.Text = "当前编码：";
+            this.label1.Text = "当前选择编码：";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(100, 62);
+            this.label2.Location = new System.Drawing.Point(121, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 15);
             this.label2.TabIndex = 5;
