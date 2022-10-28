@@ -11,20 +11,34 @@ using System.Windows.Forms;
 
 namespace Form高频字检测 {
     public partial class Form1 : Form {
-        string _fileName;
-        Dictionary<char, int> _dict = new Dictionary<char, int>();
-        List<char> _listWord = new List<char>();
-        List<int> _ListWordTimes = new List<int>();
-        string _encoding = "GB18030";
+        string _fileName = "";
+        Dictionary<char, int> _dict_ofNewFile;
+        List<char> _listWord;
+        List<int> _listWordTimes;
+        Dictionary<char, int> _dict_ofChineseCharacterFrequencyFile = new Dictionary<char, int>();
+        string _encoding = "UTF-8";
+        bool _isDetected = false;
         public Form1() {
             InitializeComponent();
+            label2.Text = _encoding;
+            
+            if (File.Exists("ChineseCharacterFrequency.txt") == false) {
+                File.WriteAllText("ChineseCharacterFrequency.txt", "");
+            }
+            string[] arr_string = File.ReadAllLines("ChineseCharacterFrequency.txt");
+            foreach (var line in arr_string) {
+                char word = line[0];
+                int times = Convert.ToInt32(line.Substring(1));
+                _dict_ofChineseCharacterFrequencyFile.Add(word, times);
+            }
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
-                int fileLen = openFileDialog.FileName.LastIndexOf(@"/");
+                int fileLen = openFileDialog.FileName.LastIndexOf(@"\");
                 _fileName = openFileDialog.FileName.Substring(fileLen + 1);
+                label4.Text = _fileName;
             }
         }
         private bool ContainSymbol(char word) {
@@ -78,26 +92,31 @@ namespace Form高频字检测 {
         }
 
         private void button3_Click(object sender, EventArgs e) {
+            if (Is_choseFile() == false) {
+                MessageBox.Show("请选择文件！");
+                return;
+            }
+            _isDetected = true;
+            _dict_ofNewFile = new Dictionary<char, int>();
+            _listWord = new List<char>();
+            _listWordTimes = new List<int>();
+
             string Chinese = File.ReadAllText(_fileName, Encoding.GetEncoding(_encoding));
-            int a = 0;
             foreach (var word in Chinese) {
                 if (ContainSymbol(word) == false) {
-                    if (_dict.ContainsKey(word) == false) {
-                       
-                        _dict.Add(word, 1);
+                    if (_dict_ofNewFile.ContainsKey(word) == false) {
+
+                        _dict_ofNewFile.Add(word, 1);
                     }
                     else {
-                      
-                        _dict[word]++;
+
+                        _dict_ofNewFile[word]++;
                     }
                 }
             }
-            foreach (var keyAndValue in _dict) {
-                if (keyAndValue.Key == '史') {
-                    a++;
-                }
+            foreach (var keyAndValue in _dict_ofNewFile) {
                 _listWord.Add(keyAndValue.Key);
-                _ListWordTimes.Add(keyAndValue.Value);
+                _listWordTimes.Add(keyAndValue.Value);
             }
             QuickSort(0, _listWord.Count - 1);
             MessageBox.Show("检测完成！");
@@ -106,48 +125,55 @@ namespace Form高频字检测 {
             if (leftIndex >= rightIndex) {
                 return;
             }
-            int baseValue = _ListWordTimes[leftIndex];
+            int baseValue = _listWordTimes[leftIndex];
             char baseWord = _listWord[leftIndex];
             int i = leftIndex;
             int j = rightIndex;
             int temp = 0;
             char tempWord = ' ';
             while (i < j) {
-                while (_ListWordTimes[j] <= baseValue && i < j) j--;
-                while (_ListWordTimes[i] >= baseValue && i < j) i++;
+                while (_listWordTimes[j] <= baseValue && i < j) j--;
+                while (_listWordTimes[i] >= baseValue && i < j) i++;
                 if (i < j) {
-                    temp = _ListWordTimes[i];
+                    temp = _listWordTimes[i];
                     tempWord = _listWord[i];
-                    _ListWordTimes[i] = _ListWordTimes[j];
+                    _listWordTimes[i] = _listWordTimes[j];
                     _listWord[i] = _listWord[j];
-                    _ListWordTimes[j] = temp;
+                    _listWordTimes[j] = temp;
                     _listWord[j] = tempWord;
                 }
                 else {
                     _listWord[leftIndex] = _listWord[i];
                     _listWord[i] = baseWord;
-                    _ListWordTimes[leftIndex] = _ListWordTimes[i];
-                    _ListWordTimes[i] = baseValue;
-                    
+                    _listWordTimes[leftIndex] = _listWordTimes[i];
+                    _listWordTimes[i] = baseValue;
+
 
                 }
 
             }
-            QuickSort(leftIndex,i-1);
-            QuickSort(i+1,rightIndex);
+            QuickSort(leftIndex, i - 1);
+            QuickSort(i + 1, rightIndex);
 
 
         }
 
         private void button1_Click(object sender, EventArgs e) {
-           
+            if (Is_choseFile() == false) {
+                MessageBox.Show("请选择文件！");
+                return;
+            }
+            if(_isDetected == false) {
+                MessageBox.Show("请先检测文件！");
+                return;
+            }
             int len = _listWord.Count * 3;
-            StringBuilder sb = new StringBuilder(len);
+            StringBuilder sb = new StringBuilder();
 
             int index = 0;
             for (int i = 0; i < _listWord.Count; i++) {
                 sb.Append(_listWord[index]);
-                sb.Append(_ListWordTimes[index].ToString());
+                sb.Append(_listWordTimes[index].ToString());
                 sb.Append("\n");
                 index++;
             }
@@ -173,7 +199,46 @@ namespace Form高频字检测 {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            label2.Text = _encoding;
+
+        }
+        private bool Is_choseFile() {
+            if (_fileName == "") {
+
+                return false;
+            }
+            return true;
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            if (Is_choseFile() == false) {
+                MessageBox.Show("请选择文件！");
+                return;
+            }
+            if (_isDetected == false) {
+                MessageBox.Show("请先检测文件！");
+                return;
+            }
+            foreach (var wordAndTimes in _dict_ofNewFile) {
+                if (_dict_ofChineseCharacterFrequencyFile.ContainsKey(wordAndTimes.Key)) {
+                    _dict_ofChineseCharacterFrequencyFile[wordAndTimes.Key] += wordAndTimes.Value;
+                }
+                else {
+                    _dict_ofChineseCharacterFrequencyFile.Add(wordAndTimes.Key, wordAndTimes.Value);
+                }
+            }
+            int len = _listWord.Count * 3;
+            StringBuilder sb = new StringBuilder();
+            foreach (var wordAndTimes in _dict_ofChineseCharacterFrequencyFile) {
+                sb.Append(wordAndTimes.Key);
+                sb.Append(wordAndTimes.Value.ToString());
+                sb.Append("\n");
+            }
+            File.WriteAllText("ChineseCharacterFrequency.txt", sb.ToString());
+            MessageBox.Show("输出完成！");
+        }
+
+        private void 说明ToolStripMenuItem_Click(object sender, EventArgs e) {
+            MessageBox.Show("作者：桂南鄙士\n初版完成时间：2022年10月28日22:27\n小贴士：如果检测文件时发现编码搞错了，可以重新选好编码再检测一次。之前的乱码检测记录不会被保存。");
         }
     }
 }
