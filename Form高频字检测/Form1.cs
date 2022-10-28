@@ -11,6 +11,15 @@ using System.Windows.Forms;
 
 namespace Form高频字检测 {
     public partial class Form1 : Form {
+        long totalTImes = 0;
+        double num100 = 0;
+        double num500 = 0;
+        double num1000 = 0;
+        double num1500 = 0;
+        double num2000 = 0;
+        double num3000 = 0;
+        double num4000 = 0;
+        double num5000 = 0;
         string _fileName = "";
         Dictionary<char, int> _dict_ofNewFile;
         List<char> _listWord;
@@ -32,12 +41,51 @@ namespace Form高频字检测 {
             }
             File.Copy("ChineseCharacterFrequency.txt", "oldChineseCharacterFrequency.txt");
             _dict_ofChineseCharacterFrequencyFile = new Dictionary<char, int>();
+
+
+
             string[] arr_string = File.ReadAllLines("ChineseCharacterFrequency.txt");
+            int index = 0;
             foreach (var line in arr_string) {
+                index++;
                 char word = line[0];
                 int times = Convert.ToInt32(line.Substring(1));
+                totalTImes += times;
                 _dict_ofChineseCharacterFrequencyFile.Add(word, times);
+                if (index == 100) {
+                    num100 = totalTImes;
+                }
+                else if(index == 500) {
+                    num500 = totalTImes;
+                }
+                else if (index == 1000) {
+                    num1000 = totalTImes;
+                }
+                else if (index == 1500) {
+                    num1500 = totalTImes;
+                }
+                else if (index == 2000) {
+                    num2000 = totalTImes;
+                }
+                else if (index == 3000) {
+                    num3000 = totalTImes;
+                }
+                else if (index == 4000) {
+                    num4000 = totalTImes;
+                }
+                else if (index == 5000) {
+                    num5000 = totalTImes;
+                }
             }
+            num100 /= totalTImes ;
+            num500 /= totalTImes;
+            num1000 /= totalTImes;
+            num1500 /= totalTImes;
+            num2000 /= totalTImes;
+            num3000 /= totalTImes;
+            num4000 /= totalTImes;
+            num5000 /= totalTImes;
+
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -465,15 +513,28 @@ namespace Form高频字检测 {
             if (File.Exists("ChineseCharacterFrequency.txt") == false) {
                 File.WriteAllText("ChineseCharacterFrequency.txt", "");
             }
-            _dict_ofChineseCharacterFrequencyFile = new Dictionary<char, int>();
+           
             StringBuilder sb = new StringBuilder();
             string[] arr_string = File.ReadAllLines("ChineseCharacterFrequency.txt");
+            
             foreach (var line in arr_string) {
                 char word = line[0];
                 sb.Append(word);
             }
             File.WriteAllText("字频集合.txt", sb.ToString());
             MessageBox.Show("输出完成！");
+        }
+
+        private void 字频比例显示ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Init_dictOfChineseCharacterFrequency();
+            MessageBox.Show($"当前ChineseCharacterFrequency.txt文件中，\n前100字频率占所有汉字频率的比例为：{num100 * 100}%" +
+    $"\n前500字频率占所有汉字频率的比例为：{num500 * 100}%" +
+    $"\n前1000字频率占所有汉字频率的比例为：{num1000 * 100}%" +
+    $"\n前1500字频率占所有汉字频率的比例为：{num1500 * 100}%" +
+    $"\n前2000字频率占所有汉字频率的比例为：{num2000 * 100}%" +
+    $"\n前3000字频率占所有汉字频率的比例为：{num3000 * 100}%" +
+    $"\n前4000字频率占所有汉字频率的比例为：{num4000 * 100}%" +
+    $"\n前5000字频率占所有汉字频率的比例为：{num5000 * 100}%");
         }
     }
 }

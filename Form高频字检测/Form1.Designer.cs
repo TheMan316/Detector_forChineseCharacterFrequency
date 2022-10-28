@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.字频比例显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,12 +48,13 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开ToolStripMenuItem,
             this.设置ToolStripMenuItem,
-            this.说明ToolStripMenuItem});
+            this.说明ToolStripMenuItem,
+            this.字频比例显示ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(410, 28);
             this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Text = "字频比例显示";
             // 
             // 打开ToolStripMenuItem
             // 
@@ -180,6 +182,14 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // 字频比例显示ToolStripMenuItem
+            // 
+            this.字频比例显示ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.字频比例显示ToolStripMenuItem.Name = "字频比例显示ToolStripMenuItem";
+            this.字频比例显示ToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.字频比例显示ToolStripMenuItem.Text = "字频比例显示";
+            this.字频比例显示ToolStripMenuItem.Click += new System.EventHandler(this.字频比例显示ToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -224,6 +234,7 @@
         private System.Windows.Forms.ToolStripMenuItem 说明ToolStripMenuItem;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ToolStripMenuItem 字频比例显示ToolStripMenuItem;
     }
 }
 
