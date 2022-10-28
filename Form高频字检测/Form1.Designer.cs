@@ -163,11 +163,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.IndianRed;
-            this.label5.Location = new System.Drawing.Point(100, 88);
+            this.label5.Location = new System.Drawing.Point(111, 88);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(202, 15);
+            this.label5.Size = new System.Drawing.Size(187, 15);
             this.label5.TabIndex = 8;
-            this.label5.Text = "一定要确认编码格式中正确！";
+            this.label5.Text = "一定要确认编码格式正确！";
             // 
             // Form1
             // 
