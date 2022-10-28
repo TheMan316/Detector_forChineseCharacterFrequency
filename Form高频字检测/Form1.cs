@@ -15,16 +15,19 @@ namespace Form高频字检测 {
         Dictionary<char, int> _dict_ofNewFile;
         List<char> _listWord;
         List<int> _listWordTimes;
-        Dictionary<char, int> _dict_ofChineseCharacterFrequencyFile = new Dictionary<char, int>();
+        Dictionary<char, int> _dict_ofChineseCharacterFrequencyFile;
         string _encoding = "UTF-8";
         bool _isDetected = false;
         public Form1() {
             InitializeComponent();
             label2.Text = _encoding;
-            
+          
+        }
+        private void Init_dictOfChineseCharacterFrequency() {
             if (File.Exists("ChineseCharacterFrequency.txt") == false) {
                 File.WriteAllText("ChineseCharacterFrequency.txt", "");
             }
+            _dict_ofChineseCharacterFrequencyFile = new Dictionary<char, int>();
             string[] arr_string = File.ReadAllLines("ChineseCharacterFrequency.txt");
             foreach (var line in arr_string) {
                 char word = line[0];
@@ -34,11 +37,12 @@ namespace Form高频字检测 {
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Init_dictOfChineseCharacterFrequency();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 int fileLen = openFileDialog.FileName.LastIndexOf(@"\");
-                _fileName = openFileDialog.FileName.Substring(fileLen + 1);
-                label4.Text = _fileName;
+                _fileName = openFileDialog.FileName;
+                label4.Text = openFileDialog.FileName.Substring(fileLen + 1);
             }
         }
         private bool ContainSymbol(char word) {
@@ -118,42 +122,42 @@ namespace Form高频字检测 {
                 _listWord.Add(keyAndValue.Key);
                 _listWordTimes.Add(keyAndValue.Value);
             }
-            QuickSort(0, _listWord.Count - 1);
+            QuickSort(0, _listWord.Count - 1,_listWord,_listWordTimes);
             MessageBox.Show("检测完成！");
         }
-        private void QuickSort(int leftIndex, int rightIndex) {
+        private void QuickSort(int leftIndex, int rightIndex, List<char> list_word, List<int> list_times) {
             if (leftIndex >= rightIndex) {
                 return;
             }
-            int baseValue = _listWordTimes[leftIndex];
-            char baseWord = _listWord[leftIndex];
+            int baseValue = list_times[leftIndex];
+            char baseWord = list_word[leftIndex];
             int i = leftIndex;
             int j = rightIndex;
             int temp = 0;
             char tempWord = ' ';
             while (i < j) {
-                while (_listWordTimes[j] <= baseValue && i < j) j--;
-                while (_listWordTimes[i] >= baseValue && i < j) i++;
+                while (list_times[j] <= baseValue && i < j) j--;
+                while (list_times[i] >= baseValue && i < j) i++;
                 if (i < j) {
-                    temp = _listWordTimes[i];
-                    tempWord = _listWord[i];
-                    _listWordTimes[i] = _listWordTimes[j];
-                    _listWord[i] = _listWord[j];
-                    _listWordTimes[j] = temp;
-                    _listWord[j] = tempWord;
+                    temp = list_times[i];
+                    tempWord = list_word[i];
+                    list_times[i] = list_times[j];
+                    list_word[i] = list_word[j];
+                    list_times[j] = temp;
+                    list_word[j] = tempWord;
                 }
                 else {
-                    _listWord[leftIndex] = _listWord[i];
-                    _listWord[i] = baseWord;
-                    _listWordTimes[leftIndex] = _listWordTimes[i];
-                    _listWordTimes[i] = baseValue;
+                    list_word[leftIndex] = list_word[i];
+                    list_word[i] = baseWord;
+                    list_times[leftIndex] = list_times[i];
+                    list_times[i] = baseValue;
 
 
                 }
 
             }
-            QuickSort(leftIndex, i - 1);
-            QuickSort(i + 1, rightIndex);
+            QuickSort(leftIndex, i - 1,list_word,list_times);
+            QuickSort(i + 1, rightIndex,list_word, list_times);
 
 
         }
@@ -170,12 +174,11 @@ namespace Form高频字检测 {
             int len = _listWord.Count * 3;
             StringBuilder sb = new StringBuilder();
 
-            int index = 0;
             for (int i = 0; i < _listWord.Count; i++) {
-                sb.Append(_listWord[index]);
-                sb.Append(_listWordTimes[index].ToString());
+                sb.Append(_listWord[i]);
+                sb.Append(_listWordTimes[i].ToString());
                 sb.Append("\n");
-                index++;
+
             }
             File.WriteAllText("tempFile.txt", sb.ToString());
             MessageBox.Show("输出完成！");
@@ -218,6 +221,8 @@ namespace Form高频字检测 {
                 MessageBox.Show("请先检测文件！");
                 return;
             }
+            _listWord = new List<char>();
+            _listWordTimes = new List<int>();
             foreach (var wordAndTimes in _dict_ofNewFile) {
                 if (_dict_ofChineseCharacterFrequencyFile.ContainsKey(wordAndTimes.Key)) {
                     _dict_ofChineseCharacterFrequencyFile[wordAndTimes.Key] += wordAndTimes.Value;
@@ -226,11 +231,16 @@ namespace Form高频字检测 {
                     _dict_ofChineseCharacterFrequencyFile.Add(wordAndTimes.Key, wordAndTimes.Value);
                 }
             }
+            foreach (var wordAndTimes in _dict_ofChineseCharacterFrequencyFile) {
+                _listWord.Add(wordAndTimes.Key);
+                _listWordTimes.Add(wordAndTimes.Value);
+            }
+            QuickSort(0, _listWord.Count - 1, _listWord, _listWordTimes);
             int len = _listWord.Count * 3;
             StringBuilder sb = new StringBuilder();
-            foreach (var wordAndTimes in _dict_ofChineseCharacterFrequencyFile) {
-                sb.Append(wordAndTimes.Key);
-                sb.Append(wordAndTimes.Value.ToString());
+            for (int i = 0; i < _listWord.Count; i++) {
+                sb.Append(_listWord[i]);
+                sb.Append(_listWordTimes[i].ToString());
                 sb.Append("\n");
             }
             File.WriteAllText("ChineseCharacterFrequency.txt", sb.ToString());
@@ -238,7 +248,7 @@ namespace Form高频字检测 {
         }
 
         private void 说明ToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show("作者：桂南鄙士\n初版完成时间：2022年10月28日22:27\n小贴士：如果检测文件时发现编码搞错了，可以重新选好编码再检测一次。之前的乱码检测记录不会被保存。");
+            MessageBox.Show("作者：桂南鄙士\n初版完成时间：2022年10月28日22:57\n小贴士：\n1、如果检测文件时发现编码搞错了，可以重新选好编码再检测一次。之前的乱码检测记录不会被保存。\n2、ChineseCharacterFrequency.txt可以被手动删除。\n3、GB18030编码兼容GBK编码");
         }
     }
 }
