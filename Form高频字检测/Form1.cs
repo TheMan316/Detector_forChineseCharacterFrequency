@@ -262,7 +262,7 @@ namespace Form高频字检测 {
         }
 
         private void 说明ToolStripMenuItem_Click(object sender, EventArgs e) {
-            MessageBox.Show("作者：桂南鄙士\n初版完成时间：2022年10月28日22:57\n小贴士：\n1、如果检测文件时发现编码搞错了，可以重新选好编码再检测一次。之前的乱码检测记录不会被保存。\n2、ChineseCharacterFrequency.txt可以被手动删除。\n3、GB18030编码兼容GBK编码");
+            MessageBox.Show("作者：桂南鄙士\n初版完成时间：2022年10月28日23:12\n小贴士：\n1、如果检测文件时发现编码搞错了，可以重新选好编码再检测一次。之前的乱码检测记录不会被保存。\n2、ChineseCharacterFrequency.txt可以被手动删除。\n3、GB18030编码兼容GBK编码");
         }
     }
 }
