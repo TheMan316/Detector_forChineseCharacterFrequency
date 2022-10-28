@@ -28,6 +28,7 @@
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gB18030ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uTF8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -35,8 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label5 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             // 
             this.打开ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.打开ToolStripMenuItem.Text = "打开文件";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
             // 
@@ -68,7 +69,7 @@
             this.gB18030ToolStripMenuItem,
             this.uTF8ToolStripMenuItem});
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(83, 26);
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.设置ToolStripMenuItem.Text = "选择编码";
             this.设置ToolStripMenuItem.Click += new System.EventHandler(this.设置ToolStripMenuItem_Click);
             // 
@@ -86,19 +87,27 @@
             this.uTF8ToolStripMenuItem.Text = "UTF-8";
             this.uTF8ToolStripMenuItem.Click += new System.EventHandler(this.uTF8ToolStripMenuItem_Click);
             // 
+            // 说明ToolStripMenuItem
+            // 
+            this.说明ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.说明ToolStripMenuItem.Name = "说明ToolStripMenuItem";
+            this.说明ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.说明ToolStripMenuItem.Text = "说明";
+            this.说明ToolStripMenuItem.Click += new System.EventHandler(this.说明ToolStripMenuItem_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(143, 163);
+            this.button1.Location = new System.Drawing.Point(148, 184);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 24);
             this.button1.TabIndex = 1;
-            this.button1.Text = "保存为新文件";
+            this.button1.Text = "保存至新文件";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(133, 222);
+            this.button2.Location = new System.Drawing.Point(135, 214);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(142, 24);
             this.button2.TabIndex = 2;
@@ -108,7 +117,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(165, 113);
+            this.button3.Location = new System.Drawing.Point(167, 155);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 3;
@@ -151,29 +160,32 @@
             this.label4.Size = new System.Drawing.Size(0, 15);
             this.label4.TabIndex = 7;
             // 
-            // 说明ToolStripMenuItem
-            // 
-            this.说明ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.说明ToolStripMenuItem.Name = "说明ToolStripMenuItem";
-            this.说明ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-            this.说明ToolStripMenuItem.Text = "说明";
-            this.说明ToolStripMenuItem.Click += new System.EventHandler(this.说明ToolStripMenuItem_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.IndianRed;
-            this.label5.Location = new System.Drawing.Point(111, 88);
+            this.label5.Location = new System.Drawing.Point(111, 100);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(187, 15);
             this.label5.TabIndex = 8;
             this.label5.Text = "一定要确认编码格式正确！";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(335, 33);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "字频提取";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 298);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -211,6 +223,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem 说明ToolStripMenuItem;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button4;
     }
 }
 
