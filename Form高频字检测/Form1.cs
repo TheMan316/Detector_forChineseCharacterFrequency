@@ -27,6 +27,10 @@ namespace Form高频字检测 {
             if (File.Exists("ChineseCharacterFrequency.txt") == false) {
                 File.WriteAllText("ChineseCharacterFrequency.txt", "");
             }
+            if (File.Exists("oldChineseCharacterFrequency.txt")) {
+                File.Delete("oldChineseCharacterFrequency.txt");
+            }
+            File.Copy("ChineseCharacterFrequency.txt", "oldChineseCharacterFrequency.txt");
             _dict_ofChineseCharacterFrequencyFile = new Dictionary<char, int>();
             string[] arr_string = File.ReadAllLines("ChineseCharacterFrequency.txt");
             foreach (var line in arr_string) {
@@ -71,12 +75,22 @@ namespace Form高频字检测 {
                 case '┌':
                     return true;
                 case '─':
-                    return true;
+                    return true; 
                 case '┐':
+                    return true;
+                case '「':
+                    return true;
+                case '」':
+                    return true;
+                case '　':
                     return true;
                 case '└':
                     return true;
                 case '┘':
+                    return true;
+                case '《':
+                    return true;
+                case '》':
                     return true;
                 case '；':
                     return true;
