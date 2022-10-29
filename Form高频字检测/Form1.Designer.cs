@@ -29,6 +29,7 @@
             this.gB18030ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uTF8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.说明ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.字频比例显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -38,7 +39,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.字频比例显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.普通文本ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.qQ聊天记录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +61,9 @@
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.打开ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.普通文本ToolStripMenuItem,
+            this.qQ聊天记录ToolStripMenuItem});
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
             this.打开ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.打开ToolStripMenuItem.Text = "打开文件";
@@ -96,6 +101,14 @@
             this.说明ToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.说明ToolStripMenuItem.Text = "说明";
             this.说明ToolStripMenuItem.Click += new System.EventHandler(this.说明ToolStripMenuItem_Click);
+            // 
+            // 字频比例显示ToolStripMenuItem
+            // 
+            this.字频比例显示ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.字频比例显示ToolStripMenuItem.Name = "字频比例显示ToolStripMenuItem";
+            this.字频比例显示ToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
+            this.字频比例显示ToolStripMenuItem.Text = "字频比例显示";
+            this.字频比例显示ToolStripMenuItem.Click += new System.EventHandler(this.字频比例显示ToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -182,13 +195,19 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // 字频比例显示ToolStripMenuItem
+            // 普通文本ToolStripMenuItem
             // 
-            this.字频比例显示ToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.字频比例显示ToolStripMenuItem.Name = "字频比例显示ToolStripMenuItem";
-            this.字频比例显示ToolStripMenuItem.Size = new System.Drawing.Size(113, 24);
-            this.字频比例显示ToolStripMenuItem.Text = "字频比例显示";
-            this.字频比例显示ToolStripMenuItem.Click += new System.EventHandler(this.字频比例显示ToolStripMenuItem_Click);
+            this.普通文本ToolStripMenuItem.Name = "普通文本ToolStripMenuItem";
+            this.普通文本ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.普通文本ToolStripMenuItem.Text = "普通文本";
+            this.普通文本ToolStripMenuItem.Click += new System.EventHandler(this.普通文本ToolStripMenuItem_Click);
+            // 
+            // qQ聊天记录ToolStripMenuItem
+            // 
+            this.qQ聊天记录ToolStripMenuItem.Name = "qQ聊天记录ToolStripMenuItem";
+            this.qQ聊天记录ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.qQ聊天记录ToolStripMenuItem.Text = "QQ聊天记录";
+            this.qQ聊天记录ToolStripMenuItem.Click += new System.EventHandler(this.qQ聊天记录ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -235,6 +254,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ToolStripMenuItem 字频比例显示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 普通文本ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem qQ聊天记录ToolStripMenuItem;
     }
 }
 

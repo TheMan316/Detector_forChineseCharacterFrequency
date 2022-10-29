@@ -21,6 +21,7 @@ namespace Form高频字检测 {
         double num4000 = 0;
         double num5000 = 0;
         string _fileName = "";
+        bool _isQQFile = false;
         Dictionary<char, int> _dict_ofNewFile;
         List<char> _listWord;
         List<int> _listWordTimes;
@@ -30,7 +31,7 @@ namespace Form高频字检测 {
         public Form1() {
             InitializeComponent();
             label2.Text = _encoding;
-          
+
         }
         private void Init_dictOfChineseCharacterFrequency() {
             if (File.Exists("ChineseCharacterFrequency.txt") == false) {
@@ -55,7 +56,7 @@ namespace Form高频字检测 {
                 if (index == 100) {
                     num100 = totalTImes;
                 }
-                else if(index == 500) {
+                else if (index == 500) {
                     num500 = totalTImes;
                 }
                 else if (index == 1000) {
@@ -77,7 +78,7 @@ namespace Form高频字检测 {
                     num5000 = totalTImes;
                 }
             }
-            num100 /= totalTImes ;
+            num100 /= totalTImes;
             num500 /= totalTImes;
             num1000 /= totalTImes;
             num1500 /= totalTImes;
@@ -89,18 +90,13 @@ namespace Form高频字检测 {
         }
 
         private void 打开ToolStripMenuItem_Click(object sender, EventArgs e) {
-            Init_dictOfChineseCharacterFrequency();
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == DialogResult.OK) {
-                int fileLen = openFileDialog.FileName.LastIndexOf(@"\");
-                _fileName = openFileDialog.FileName;
-                label4.Text = openFileDialog.FileName.Substring(fileLen + 1);
-            }
+
         }
         private bool ContainSymbol(char word) {
             if ((int)word <= 255) {
                 return true;
             }
+
             switch (word) {
                 case '。':
                     return true;
@@ -122,11 +118,111 @@ namespace Form高频字检测 {
                     return true;
                 case '【':
                     return true;
+                case '⠄':
+                    return true;
+                case '•':
+                    return true;
+                case '￣':
+                    return true;
+                case 'ン':
+                    return true;
+                case '氵':
+                    return true;
+                case '✓':
+                    return true;
+                case 'の':
+                    return true;
+                case '✪':
+                    return true;
+                case 'о':
+                    return true;
+                case 'ρ':
+                    return true;
+                case '＞':
+                    return true;
+                case '√':
+                    return true;
                 case '】':
+                    return true;
+                case '→':
+                    return true;
+                case 'ろ':
+                    return true;
+                case 'う':
+                    return true;
+                case '＃':
                     return true;
                 case '〗':
                     return true;
+                case 'か':
+                    return true;
+                case '⣿':
+                    return true;
+                case 'つ':
+                    return true;
+                case '←':
+                    return true;
+                case '↑':
+                    return true;
+                case '⑧':
+                    return true;
+                case '┼':
+                    return true;
+                case 'ಡ':
+                    return true;
+                case 'い':
+                    return true;
+                case '丶':
+                    return true;
+                case '❀':
+                    return true;
                 case '〖':
+                    return true;
+                case 'る':
+                    return true;
+                case 'マ':
+                    return true;
+                case 'リ':
+                    return true;
+                case 'λ':
+                    return true;
+                case 'ピ':
+                    return true;
+                case '∀':
+                    return true;
+                case '／':
+                    return true;
+                case 'ん':
+                    return true;
+                case '∠':
+                    return true;
+                case '꧂':
+                    return true;
+                case 'グ':
+                    return true;
+                case 'ο':
+                    return true;
+                case '☭':
+                    return true;
+                case 'に':
+                    return true;
+                case '๑':
+                    return true;
+                case '＂':
+                    return true;
+                case 'え':
+                    return true;
+                case '♚':
+                    return true;
+                case 'ﾟ':
+                    return true;
+                case 'ー':
+                    return true;
+                case 'а':
+                    return true;
+                case '༺':
+                    return true;
+                case 'и':
                     return true;
                 case ')':
                     return true;
@@ -349,7 +445,18 @@ namespace Form高频字检测 {
                 case '\n':
                     return true;
                 default:
-                    return false;
+                    break;
+            }
+            //处理因表情带来的编码异常
+            if (_encoding == "UTF-8" && (word >= 0x0020 && word <= 0xD7FF) ||
+                (word >= 0xE000 && word <= 0xFFFD) ||
+                word == 0x0009 || 
+                word == 0x000A ||
+                word == 0x000D) {
+                return false;
+            }
+            else {
+                return true;
             }
         }
 
@@ -362,8 +469,26 @@ namespace Form高频字检测 {
             _dict_ofNewFile = new Dictionary<char, int>();
             _listWord = new List<char>();
             _listWordTimes = new List<int>();
+            string Chinese = "";
+            StringBuilder stringBuilder = new StringBuilder();
 
-            string Chinese = File.ReadAllText(_fileName, Encoding.GetEncoding(_encoding));
+            if (_isQQFile) {
+                string[] QQChinese = File.ReadAllLines(_fileName, Encoding.GetEncoding(_encoding));
+                foreach (var line in QQChinese) {
+                    if (line.Length != 0 && (int)line[0] <= 255) {
+                        continue;
+                    }
+                    else {
+                        stringBuilder.Append(line);
+                    }
+                }
+                Chinese = stringBuilder.ToString();
+            }
+            else {
+                Chinese = File.ReadAllText(_fileName, Encoding.GetEncoding(_encoding));
+
+            }
+
             foreach (var word in Chinese) {
                 if (ContainSymbol(word) == false) {
                     if (_dict_ofNewFile.ContainsKey(word) == false) {
@@ -380,7 +505,7 @@ namespace Form高频字检测 {
                 _listWord.Add(keyAndValue.Key);
                 _listWordTimes.Add(keyAndValue.Value);
             }
-            QuickSort(0, _listWord.Count - 1,_listWord,_listWordTimes);
+            QuickSort(0, _listWord.Count - 1, _listWord, _listWordTimes);
             MessageBox.Show("检测完成！");
         }
         private void QuickSort(int leftIndex, int rightIndex, List<char> list_word, List<int> list_times) {
@@ -414,8 +539,8 @@ namespace Form高频字检测 {
                 }
 
             }
-            QuickSort(leftIndex, i - 1,list_word,list_times);
-            QuickSort(i + 1, rightIndex,list_word, list_times);
+            QuickSort(leftIndex, i - 1, list_word, list_times);
+            QuickSort(i + 1, rightIndex, list_word, list_times);
 
 
         }
@@ -425,7 +550,7 @@ namespace Form高频字检测 {
                 MessageBox.Show("请选择文件！");
                 return;
             }
-            if(_isDetected == false) {
+            if (_isDetected == false) {
                 MessageBox.Show("请先检测文件！");
                 return;
             }
@@ -436,8 +561,8 @@ namespace Form高频字检测 {
                 sb.Append(_listWord[i]);
                 sb.Append(_listWordTimes[i].ToString());
                 sb.Append("\n");
-
             }
+
             File.WriteAllText("tempFile.txt", sb.ToString());
             MessageBox.Show("输出完成！");
 
@@ -513,10 +638,10 @@ namespace Form高频字检测 {
             if (File.Exists("ChineseCharacterFrequency.txt") == false) {
                 File.WriteAllText("ChineseCharacterFrequency.txt", "");
             }
-           
+
             StringBuilder sb = new StringBuilder();
             string[] arr_string = File.ReadAllLines("ChineseCharacterFrequency.txt");
-            
+
             foreach (var line in arr_string) {
                 char word = line[0];
                 sb.Append(word);
@@ -535,6 +660,28 @@ namespace Form高频字检测 {
     $"\n前3000字频率占所有汉字频率的比例为：{num3000 * 100}%" +
     $"\n前4000字频率占所有汉字频率的比例为：{num4000 * 100}%" +
     $"\n前5000字频率占所有汉字频率的比例为：{num5000 * 100}%");
+        }
+
+        private void 普通文本ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Init_dictOfChineseCharacterFrequency();
+            _isQQFile = false;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                int fileLen = openFileDialog.FileName.LastIndexOf(@"\");
+                _fileName = openFileDialog.FileName;
+                label4.Text = openFileDialog.FileName.Substring(fileLen + 1);
+            }
+        }
+
+        private void qQ聊天记录ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Init_dictOfChineseCharacterFrequency();
+            _isQQFile = true;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
+                int fileLen = openFileDialog.FileName.LastIndexOf(@"\");
+                _fileName = openFileDialog.FileName;
+                label4.Text = openFileDialog.FileName.Substring(fileLen + 1);
+            }
         }
     }
 }
